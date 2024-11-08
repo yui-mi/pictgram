@@ -12,9 +12,8 @@ public class PictgramApplication extends SpringBootServletInitializer {
 		SpringApplication.run(PictgramApplication.class, args);
 	}
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(PictgramApplication.class);
-	}
-
+     @Override
+     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+         return application.sources(PictgramApplication.class);
+     }
 }
