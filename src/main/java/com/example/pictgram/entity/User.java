@@ -23,68 +23,67 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Table(name = "users")
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class User extends AbstractEntity implements UserDetails, UserInf {
 	private static final long serialVersionUID = 1L;
 
-    public enum Authority {
-        ROLE_USER, ROLE_ADMIN
-    }
+	public enum Authority {
+		ROLE_USER, ROLE_ADMIN
+	};
 
-    public User() {
-        super();
-    }
+	public User() {
+		super();
+	}
 
-    public User(String email, String name, String password, Authority authority) {
-        this.username = email;
-        this.name = name;
-        this.password = password;
-        this.authority = authority;
-    }
+	public User(String email, String name, String password, Authority authority) {
+		this.username = email;
+		this.name = name;
+		this.password = password;
+		this.authority = authority;
+	}
 
-    @Id
-    @SequenceGenerator(name = "users_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+	@Id
+	@SequenceGenerator(name = "users_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+	@Column(nullable = false, unique = true)
+	private String username;
 
-    @Column(nullable = false)
-    private String name;
+	@Column(nullable = false)
+	private String name;
 
-    @Column(nullable = false)
-    private String password;
+	@Column(nullable = false)
+	private String password;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Authority authority;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Authority authority;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(authority.toString()));
-        return authorities;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(authority.toString()));
+		return authorities;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }
-

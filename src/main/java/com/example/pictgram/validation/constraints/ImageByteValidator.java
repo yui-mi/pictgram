@@ -21,5 +21,4 @@ public class ImageByteValidator implements ConstraintValidator<ImageByte, Multip
         }
         return true;
     }
-
 }
