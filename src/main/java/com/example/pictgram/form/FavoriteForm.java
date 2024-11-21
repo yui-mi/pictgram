@@ -9,7 +9,7 @@ public class FavoriteForm {
 
     private Long topicId;
 
-   private TopicForm topic;
+    private TopicForm topic;
 
 }
 
