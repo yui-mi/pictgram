@@ -118,7 +118,11 @@
 			<groupId>org.apache.sanselan</groupId>
 			<artifactId>sanselan</artifactId>
 			<version>0.97-incubator</version>
-</dependency>
+		</dependency>
+		<dependency>
+  		<groupId>com.fasterxml.jackson.dataformat</groupId>
+  			<artifactId>jackson-dataformat-csv</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
