@@ -24,6 +24,7 @@ import com.example.pictgram.form.TopicForm;
 import com.example.pictgram.repository.FavoriteRepository;
 
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 public class FavoritesController {
@@ -47,6 +48,8 @@ public class FavoritesController {
 			list.add(form);
 		}
 		model.addAttribute("list", list);
+		
+		model.addAttribute("hasFooter", true);
 
 		return "topics/index";
 	}
