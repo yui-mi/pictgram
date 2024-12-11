@@ -17,40 +17,41 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class SendMailService {
-    @Autowired
-    private JavaMailSender javaMailSender;
+	@Autowired
+	private JavaMailSender javaMailSender;
 
-    @Value("${SPRING_MAIL_USERNAME}")
-    private String springMailUsername;
-    
-    public void sendMail(Context context) {
+	@Value("${SPRING_MAIL_USERNAME}")
+	private String springMailUsername;
 
-        javaMailSender.send(new MimeMessagePreparator() {
+	public void sendMail(Context context) {
 
-            @Override
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
-                helper.setFrom(springMailUsername);
-                helper.setTo(springMailUsername);
-                helper.setSubject((String) context.getVariable("title"));
-                helper.setText(getMailBody("email", context), true);
-            }
-        });
+		javaMailSender.send(new MimeMessagePreparator() {
 
-    }
-    
-    private String getMailBody(String templateName, Context context) {
-    	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-    	templateEngine.setTemplateResolver(mailTemplateResolver());
-    	return templateEngine.process(templateName, context);
-     }
-    private ClassLoaderTemplateResolver mailTemplateResolver() {
-    	ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
-    	templateResolver.setTemplateMode(TemplateMode.HTML);
-    	templateResolver.setPrefix("mailtemplates/");
-    	templateResolver.setSuffix(".html");
-    	templateResolver.setCharacterEncoding("UTF-8");
-    	templateResolver.setCacheable(true);
-    	return templateResolver;
-    }
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, StandardCharsets.UTF_8.name());
+				helper.setFrom(springMailUsername);
+				helper.setTo(springMailUsername);
+				helper.setSubject((String) context.getVariable("title"));
+				helper.setText(getMailBody("email", context), true);
+			}
+		});
+
+	}
+
+	private String getMailBody(String templateName, Context context) {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(mailTemplateResolver());
+		return templateEngine.process(templateName, context);
+	}
+
+	private ClassLoaderTemplateResolver mailTemplateResolver() {
+		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		templateResolver.setTemplateMode(TemplateMode.HTML);
+		templateResolver.setPrefix("mailtemplates/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setCharacterEncoding("UTF-8");
+		templateResolver.setCacheable(true);
+		return templateResolver;
+	}
 }

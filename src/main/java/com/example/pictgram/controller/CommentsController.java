@@ -22,44 +22,44 @@ import com.example.pictgram.repository.CommentRepository;
 @Controller
 public class CommentsController {
 
-    @Autowired
-    private MessageSource messageSource;
+	@Autowired
+	private MessageSource messageSource;
 
-    @Autowired
-    private ModelMapper modelMapper;
+	@Autowired
+	private ModelMapper modelMapper;
 
-    @Autowired
-    private CommentRepository repository;
+	@Autowired
+	private CommentRepository repository;
 
-    @GetMapping("/topics/{topicId}/comments/new")
-    public String newComment(@PathVariable("topicId") long topicId, Model model) {
-        CommentForm form = new CommentForm();
-        form.setTopicId(topicId);
-        model.addAttribute("form", form);
+	@GetMapping("/topics/{topicId}/comments/new")
+	public String newComment(@PathVariable("topicId") long topicId, Model model) {
+		CommentForm form = new CommentForm();
+		form.setTopicId(topicId);
+		model.addAttribute("form", form);
 
-        return "comments/new";
-    }
+		return "comments/new";
+	}
 
-    @PostMapping("/topics/{topicId}/comment")
-    public String create(@PathVariable("topicId") long topicId, @Validated @ModelAttribute("form") CommentForm form,
-            BindingResult result, Model model, RedirectAttributes redirAttrs, Locale locale) {
-        if (result.hasErrors()) {
-            model.addAttribute("hasMessage", true);
-            model.addAttribute("class", "alert-danger");
-            model.addAttribute("message", messageSource.getMessage("comments.create.flash.1", new String[] {}, locale));
-            return "comments/new";
-        }
+	@PostMapping("/topics/{topicId}/comment")
+	public String create(@PathVariable("topicId") long topicId, @Validated @ModelAttribute("form") CommentForm form,
+			BindingResult result, Model model, RedirectAttributes redirAttrs, Locale locale) {
+		if (result.hasErrors()) {
+			model.addAttribute("hasMessage", true);
+			model.addAttribute("class", "alert-danger");
+			model.addAttribute("message", messageSource.getMessage("comments.create.flash.1", new String[] {}, locale));
+			return "comments/new";
+		}
 
-        Comment entity = modelMapper.map(form, Comment.class);
-        entity.setTopicId(topicId);
-        repository.saveAndFlush(entity);
+		Comment entity = modelMapper.map(form, Comment.class);
+		entity.setTopicId(topicId);
+		repository.saveAndFlush(entity);
 
-        redirAttrs.addFlashAttribute("hasMessage", true);
-        redirAttrs.addFlashAttribute("class", "alert-info");
-        redirAttrs.addFlashAttribute("message",
-                messageSource.getMessage("comments.create.flash.2", new String[] {}, locale));
+		redirAttrs.addFlashAttribute("hasMessage", true);
+		redirAttrs.addFlashAttribute("class", "alert-info");
+		redirAttrs.addFlashAttribute("message",
+				messageSource.getMessage("comments.create.flash.2", new String[] {}, locale));
 
-        return "redirect:/topics";
-    }
+		return "redirect:/topics";
+	}
 
 }

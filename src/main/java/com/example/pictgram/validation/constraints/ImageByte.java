@@ -17,11 +17,11 @@ import jakarta.validation.ReportAsSingleViolation;
 @ReportAsSingleViolation
 public @interface ImageByte {
 
-    String message() default "{com.example.pictgram.validation.constraints.ImageSize.message}";
+	String message() default "{com.example.pictgram.validation.constraints.ImageSize.message}";
 
-    Class<?>[] groups() default {};
+	Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+	Class<? extends Payload>[] payload() default {};
 
-    int max();
+	int max();
 }

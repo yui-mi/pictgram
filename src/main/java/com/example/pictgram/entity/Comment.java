@@ -17,16 +17,16 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Comment extends AbstractEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @SequenceGenerator(name = "comment_id_seq")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@SequenceGenerator(name = "comment_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private Long topicId;
+	@Column(nullable = false)
+	private Long topicId;
 
-    @Column(nullable = false, length = 1000)
-    private String description;
+	@Column(nullable = false, length = 1000)
+	private String description;
 }

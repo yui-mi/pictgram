@@ -95,24 +95,26 @@ public class TopicsController {
 			list.add(form);
 		}
 		model.addAttribute("list", list);
-		
+
 		model.addAttribute("hasFooter", true);
 
 		return "topics/index";
 	}
-	@GetMapping(value = "/topics/topic.csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
-            + "; charset=UTF-8; Content-Disposition: attachment")
-    @ResponseBody
-    public Object downloadCsv() throws IOException {
-        List<Topic> topics = repository.findAll();
-        Type listType = new TypeToken<List<TopicCsv>>() {
-        }.getType();
-        List<TopicCsv> csv = modelMapper.map(topics, listType);
-        CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(TopicCsv.class).withHeader();
 
-        return mapper.writer(schema).writeValueAsString(csv);
-    }
+	@GetMapping(value = "/topics/topic.csv", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE
+			+ "; charset=UTF-8; Content-Disposition: attachment")
+	@ResponseBody
+	public Object downloadCsv() throws IOException {
+		List<Topic> topics = repository.findAll();
+		Type listType = new TypeToken<List<TopicCsv>>() {
+		}.getType();
+		List<TopicCsv> csv = modelMapper.map(topics, listType);
+		CsvMapper mapper = new CsvMapper();
+		CsvSchema schema = mapper.schemaFor(TopicCsv.class).withHeader();
+
+		return mapper.writer(schema).writeValueAsString(csv);
+	}
+
 	public TopicForm getTopic(UserInf user, Topic entity) throws FileNotFoundException, IOException {
 		modelMapper.getConfiguration().setAmbiguityIgnored(true);
 		modelMapper.typeMap(Topic.class, TopicForm.class).addMappings(mapper -> mapper.skip(TopicForm::setUser));

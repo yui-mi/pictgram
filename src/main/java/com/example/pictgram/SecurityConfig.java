@@ -1,6 +1,5 @@
 package com.example.pictgram;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,24 +134,24 @@ public class SecurityConfig {
 			return oidcUser;
 		};
 	}
-	
+
 	public OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService() {
-        DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
-        return request -> {
-            OAuth2User oauth2User = delegate.loadUser(request);
+		DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
+		return request -> {
+			OAuth2User oauth2User = delegate.loadUser(request);
 
-            log.debug(oauth2User.toString());
+			log.debug(oauth2User.toString());
 
-            String name = oauth2User.getAttribute("login");
-            User user = repository.findByUsername(name);
-            if (user == null) {
-                user = new User(name, name, "", Authority.ROLE_USER);
-                repository.saveAndFlush(user);
-            }
-            SocialUser socialUser = new SocialUser(oauth2User.getAuthorities(), oauth2User.getAttributes(), "id",
-                    user.getUserId());
+			String name = oauth2User.getAttribute("login");
+			User user = repository.findByUsername(name);
+			if (user == null) {
+				user = new User(name, name, "", Authority.ROLE_USER);
+				repository.saveAndFlush(user);
+			}
+			SocialUser socialUser = new SocialUser(oauth2User.getAuthorities(), oauth2User.getAttributes(), "id",
+					user.getUserId());
 
-            return socialUser;
-        };
-    }
+			return socialUser;
+		};
+	}
 }

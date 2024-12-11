@@ -11,21 +11,21 @@ import lombok.Data;
 @Data
 public class TopicCsv {
 
-    @JsonProperty("ID")
-    private Long id;
+	@JsonProperty("ID")
+	private Long id;
 
-    @JsonProperty("ユーザーID")
-    private Long userId;
+	@JsonProperty("ユーザーID")
+	private Long userId;
 
-    @JsonProperty("パス")
-    private String path;
+	@JsonProperty("パス")
+	private String path;
 
-    @JsonProperty("説明")
-    private String description;
+	@JsonProperty("説明")
+	private String description;
 
-    @JsonProperty("緯度")
-    private Double latitude;
+	@JsonProperty("緯度")
+	private Double latitude;
 
-    @JsonProperty("経度")
-    private Double longitude;
+	@JsonProperty("経度")
+	private Double longitude;
 }

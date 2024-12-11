@@ -15,20 +15,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Component
 public class GlobalControllerAdvice {
 
-    @Autowired
-    private MessageSource messageSource;
+	@Autowired
+	private MessageSource messageSource;
 
-    protected static Logger log = LoggerFactory.getLogger(GlobalControllerAdvice.class);
+	protected static Logger log = LoggerFactory.getLogger(GlobalControllerAdvice.class);
 
-    @ExceptionHandler(Exception.class)
-    public String exceptionHandler(Exception e, Model model, Locale locale) {
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e, Model model, Locale locale) {
 
-        log.error(e.getMessage(), e);
+		log.error(e.getMessage(), e);
 
-        model.addAttribute("hasMessage", true);
-        model.addAttribute("class", "alert-danger");
-        model.addAttribute("message", messageSource.getMessage("common.1", new String[] {}, locale));
+		model.addAttribute("hasMessage", true);
+		model.addAttribute("class", "alert-danger");
+		model.addAttribute("message", messageSource.getMessage("common.1", new String[] {}, locale));
 
-        return "layouts/complete";
-    }
+		return "layouts/complete";
+	}
 }

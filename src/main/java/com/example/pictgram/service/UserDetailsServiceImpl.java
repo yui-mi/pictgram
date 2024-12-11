@@ -18,7 +18,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UserRepository repository;
 	protected static Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.debug("username={}", username);

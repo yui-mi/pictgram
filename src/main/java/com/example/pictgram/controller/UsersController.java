@@ -37,13 +37,15 @@ public class UsersController {
 	}
 
 	@PostMapping("/user")
-	public String create(@Validated @ModelAttribute("form") UserForm form, BindingResult result, Model model, RedirectAttributes redirAttrs, Locale locale) {
+	public String create(@Validated @ModelAttribute("form") UserForm form, BindingResult result, Model model,
+			RedirectAttributes redirAttrs, Locale locale) {
 		String name = form.getName();
 		String email = form.getEmail();
 		String password = form.getPassword();
 
 		if (repository.findByUsername(email) != null) {
-			FieldError fieldError = new FieldError(result.getObjectName(), "email", messageSource.getMessage("users.create.error.1", new String[] {}, locale));
+			FieldError fieldError = new FieldError(result.getObjectName(), "email",
+					messageSource.getMessage("users.create.error.1", new String[] {}, locale));
 			result.addError(fieldError);
 		}
 		if (result.hasErrors()) {
@@ -55,11 +57,11 @@ public class UsersController {
 
 		User entity = new User(email, name, passwordEncoder.encode(password), Authority.ROLE_USER);
 		repository.saveAndFlush(entity);
-		
+
 		model.addAttribute("hasMessage", true);
 		model.addAttribute("class", "alert-info");
 		model.addAttribute("message", "ユーザー登録が完了しました。");
-		
+
 		return "layouts/complete";
 	}
 }

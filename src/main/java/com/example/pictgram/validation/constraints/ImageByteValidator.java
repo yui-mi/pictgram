@@ -7,18 +7,18 @@ import jakarta.validation.ConstraintValidatorContext;
 
 public class ImageByteValidator implements ConstraintValidator<ImageByte, MultipartFile> {
 
-    int max;
+	int max;
 
-    @Override
-    public void initialize(ImageByte annotation) {
-        this.max = annotation.max();
-    }
+	@Override
+	public void initialize(ImageByte annotation) {
+		this.max = annotation.max();
+	}
 
-    @Override
-    public boolean isValid(MultipartFile image, ConstraintValidatorContext context) {
-        if (image.getSize() > this.max) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public boolean isValid(MultipartFile image, ConstraintValidatorContext context) {
+		if (image.getSize() > this.max) {
+			return false;
+		}
+		return true;
+	}
 }

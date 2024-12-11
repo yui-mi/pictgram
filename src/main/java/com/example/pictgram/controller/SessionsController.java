@@ -28,10 +28,11 @@ public class SessionsController {
 	}
 
 	@GetMapping("/logout-complete")
-	 public String logoutComplete(Model model, Locale locale) {
+	public String logoutComplete(Model model, Locale locale) {
 		model.addAttribute("hasMessage", true);
 		model.addAttribute("class", "alert-info");
-		model.addAttribute("message", messageSource.getMessage("sessions.logoutComplete.flash", new String[] {}, locale));
+		model.addAttribute("message",
+				messageSource.getMessage("sessions.logoutComplete.flash", new String[] {}, locale));
 
 		return "layouts/complete";
 	}

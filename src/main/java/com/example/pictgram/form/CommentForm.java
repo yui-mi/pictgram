@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class CommentForm {
 
-    private Long id;
+	private Long id;
 
-    private Long topicId;
+	private Long topicId;
 
-    @NotEmpty
-    @Size(max = 1000)
-    private String description;
+	@NotEmpty
+	@Size(max = 1000)
+	private String description;
 }
